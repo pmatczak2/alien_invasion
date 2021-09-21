@@ -4,6 +4,7 @@ import pygame
 from sideway_settings import Settings
 from sideways_image import Image
 from sideway_shooter_bullet import Bullet
+from sideways_shooter_alien import Alien
 
 class SidewaysShooter:
 
@@ -17,6 +18,9 @@ class SidewaysShooter:
 
         self.sideways_image = Image(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
     def run_game(self):
         while True:
@@ -24,9 +28,6 @@ class SidewaysShooter:
             self.sideways_image.update()
             self._update_bullets()
             self._update_screen()
-
-
-
 
     def _check_events(self):
         for event in pygame.event.get():
@@ -56,11 +57,29 @@ class SidewaysShooter:
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
 
+    def _create_fleet(self):
+        alien = Alien(self)
+        alien_height = alien.rect.height
+        available_space_y = self.sideways_settings.screen_width - (alien_height)
+        number_aliens_y = available_space_y // (2 * alien_height)
+
+
+        for alien_number in range(number_aliens_y):
+            self._create_alien(alien_number)
+
+    def _create_alien(self, alien_number):
+            alien = Alien(self)
+            alien_height = alien.rect.width
+            alien.y = alien_height + 2 * alien_height * alien_number
+            alien.rect.x = alien.y
+            self.aliens.add(alien)
+
     def _update_screen(self):
         self.screen.fill(self.sideways_settings.bg_color)
         self.sideways_image.blitime()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.aliens.draw(self.screen)
 
     def _update_bullets(self):
         self.bullets.update()

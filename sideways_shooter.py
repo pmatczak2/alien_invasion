@@ -60,13 +60,13 @@ class SidewaysShooter:
     def _create_fleet(self):
         alien = Alien(self)
         alien_height, alien_width = alien.rect.size
-        available_space_y = self.sideways_settings.screen_width - (alien_height)
+        available_space_y = self.sideways_settings.screen_width - alien_height
         number_aliens_y = available_space_y // (2 * alien_height)
 
         ship_width = self.sideways_image.rect.width
         available_space_x = (self.sideways_settings.screen_width -
-                             (3 * alien_height) - ship_width)
-        number_rows = available_space_x // (2 * alien_height)
+                             (2 * alien_height) - ship_width)
+        number_rows = available_space_x // (2 * alien_width)
 
         for row_number in range(number_rows):
             for alien_number in range(number_aliens_y):
@@ -77,7 +77,7 @@ class SidewaysShooter:
             alien_height, alien_height = alien.rect.size
             alien.y = alien_height + 2 * alien_height * alien_number
             alien.rect.y = alien.y
-            alien.rect.x = alien.rect.width + 2 * alien.rect.width * row_number
+            alien.rect.x = self.sideways_settings.screen_width - 2 * alien.rect.width
             self.aliens.add(alien)
 
     def _update_screen(self):

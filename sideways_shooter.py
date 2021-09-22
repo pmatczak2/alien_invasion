@@ -27,6 +27,7 @@ class SidewaysShooter:
             self._check_events()
             self.sideways_image.update()
             self._update_bullets()
+            self._update_aliens
             self._update_screen()
 
     def _check_events(self):
@@ -57,6 +58,14 @@ class SidewaysShooter:
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
 
+    def _update_bullets(self):
+        self.bullets.update()
+
+        for bullet in self.bullets.copy():
+            if bullet.rect.left >= self.screen.get_rect().right:
+                self.bullets.remove(bullet)
+
+
     def _create_fleet(self):
         alien = Alien(self)
         alien_height, alien_width = alien.rect.size
@@ -80,19 +89,15 @@ class SidewaysShooter:
             alien.rect.x = self.sideways_settings.screen_width - 2 * alien.rect.width * row_number
             self.aliens.add(alien)
 
+    def _update_aliens(self):
+        self.aliens.update()
+
     def _update_screen(self):
         self.screen.fill(self.sideways_settings.bg_color)
         self.sideways_image.blitime()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
-
-    def _update_bullets(self):
-        self.bullets.update()
-
-        for bullet in self.bullets.copy():
-            if bullet.rect.left >= self.screen.get_rect().right:
-                self.bullets.remove(bullet)
 
         pygame.display.flip()
 

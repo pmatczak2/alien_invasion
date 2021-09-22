@@ -13,3 +13,4 @@ class Settings:
         self.bullet_color = (60, 60, 60)
 
         self.alien_speed = 1.0
+

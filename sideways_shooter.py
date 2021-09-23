@@ -66,6 +66,9 @@ class SidewaysShooter:
             if bullet.rect.left >= self.screen.get_rect().right:
                 self.bullets.remove(bullet)
 
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions(self):
         collision = pygame.sprite.groupcollide( self.bullets, self.aliens, True, True)
 
 

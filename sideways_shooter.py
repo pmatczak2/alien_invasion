@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from random import randint
 from sideway_settings import Settings
 from sideways_image import Image
 from sideway_shooter_bullet import Bullet
@@ -65,6 +66,8 @@ class SidewaysShooter:
             if bullet.rect.left >= self.screen.get_rect().right:
                 self.bullets.remove(bullet)
 
+        collision = pygame.sprite.groupcollide( self.bullets, self.aliens, True, True)
+
 
     def _create_fleet(self):
         alien = Alien(self)
@@ -87,10 +90,10 @@ class SidewaysShooter:
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
 
-        alien.x = 3 * alien_width + 2 * alien_width * alien_number
+        alien.x = 3 * alien_width + 2 * alien_width * alien_number + randint(-23, 12)
         alien.rect.x = alien.x
 
-        alien.y = alien.rect.height + 2 * alien.rect.height * row_number
+        alien.y = alien.rect.height + 2 * alien.rect.height * row_number + randint(-12, 54)
         alien.rect.y = alien.y
         self.aliens.add(alien)
 

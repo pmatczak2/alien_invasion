@@ -12,6 +12,6 @@ class Settings:
         self.bullet_rotate = 90
         self.bullet_color = (60, 60, 60)
 
-        self.alien_speed = 1.0
-
-
+        self.alien_speed = .2
+        self.fleet_left_drop_speed = 1
+        self.fleet_direction = 1

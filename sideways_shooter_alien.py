@@ -1,4 +1,3 @@
-
 import pygame
 from pygame.sprite import Sprite
 
@@ -18,7 +17,12 @@ class Alien(Sprite):
 
         self.y = float(self.rect.y)
 
+    def check_edges(self):
+        screen_rect = self.screen.get_rect()
+        if self.rect.bottom >= screen_rect.height or self.rect.top <= 0:
+            return True
 
     def update(self):
-        self.y -= self.settings.alien_speed
+        self.y += (self.settings.alien_speed * self.settings.fleet_direction)
         self.rect.y = self.y
+

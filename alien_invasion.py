@@ -126,6 +126,15 @@ class AlienInvasion:
             aline.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
 
+    def _check_alien_bottom(self):
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                self._ship_hit()
+                break
+
+            self._check_alien_bottom()
+
     def _update_aliens(self):
         self._check_fleet_edges()
         self.aliens.update()

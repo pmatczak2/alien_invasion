@@ -83,15 +83,18 @@ class AlienInvasion:
             self.bullets.add(new_bullet)
 
     def _ship_hit(self):
-        self.stats.ships_left -= 1
+        if self.stats.ships_left > 0:
+            self.stats.ships_left -= 1
 
-        self.aliens.empty()
-        self.bullets.empty()
+            self.aliens.empty()
+            self.bullets.empty()
 
-        self._create_fleet()
-        self.ship.center_ship()
+            self._create_fleet()
+            self.ship.center_ship()
 
-        sleep(0.5)
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def _create_fleet(self):
         alien = Alien(self)

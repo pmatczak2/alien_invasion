@@ -117,6 +117,9 @@ class SidewaysShooter:
         self._check_fleet_edges()
         self.aliens.update()
 
+        if pygame.sprite.spritecollideany(self.sideways_image, self.aliens):
+            print("Ship Hit!")
+
     def _update_screen(self):
         self.screen.fill(self.sideways_settings.bg_color)
         self.sideways_image.blitime()

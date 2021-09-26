@@ -1,8 +1,11 @@
 import sys
+from time import sleep
+
 import pygame
 
 from random import randint
 from sideway_settings import Settings
+from sideway_game_satas import GameStats
 from sideways_image import Image
 from sideway_shooter_bullet import Bullet
 from sideways_shooter_alien import Alien
@@ -16,6 +19,8 @@ class SidewaysShooter:
         self.screen = pygame.display.set_mode(
             (self.sideways_settings.screen_width, self.sideways_settings.screen_height))
         pygame.display.set_caption("Sideways Shooter")
+
+        self.stats = GameStats(self)
 
         self.sideways_image = Image(self)
         self.bullets = pygame.sprite.Group()
@@ -100,6 +105,18 @@ class SidewaysShooter:
         alien.rect.y = alien.y
         self.aliens.add(alien)
 
+    def _ship_hit(self):
+        self.stats.ships_left -= 1
+
+        self.aliens.empty()
+        self.bullets.empty()
+
+        self._create_fleet()
+        self.sideways_image.center_ship()
+
+        sleep(0.5)
+
+
 
     def _check_fleet_edges(self):
         for alien in self.aliens.sprites():
@@ -118,7 +135,7 @@ class SidewaysShooter:
         self.aliens.update()
 
         if pygame.sprite.spritecollideany(self.sideways_image, self.aliens):
-            print("Ship Hit!")
+            self._ship_hit()
 
     def _update_screen(self):
         self.screen.fill(self.sideways_settings.bg_color)

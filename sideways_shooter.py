@@ -116,6 +116,13 @@ class SidewaysShooter:
 
         sleep(0.5)
 
+    def _check_aliens_left(self):
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.left >= alien.rect.left:
+                self._ship_hit()
+                break
+
 
 
     def _check_fleet_edges(self):
@@ -136,6 +143,8 @@ class SidewaysShooter:
 
         if pygame.sprite.spritecollideany(self.sideways_image, self.aliens):
             self._ship_hit()
+
+        self._check_aliens_left()
 
     def _update_screen(self):
         self.screen.fill(self.sideways_settings.bg_color)

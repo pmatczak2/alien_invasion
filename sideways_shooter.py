@@ -31,9 +31,11 @@ class SidewaysShooter:
     def run_game(self):
         while True:
             self._check_events()
-            self.sideways_image.update()
-            self._update_bullets()
-            self._update_aliens()
+            if self.stats.game_active:
+                self.sideways_image.update()
+                self._update_bullets()
+                self._update_aliens()
+
             self._update_screen()
 
     def _check_events(self):

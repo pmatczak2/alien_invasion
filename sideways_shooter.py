@@ -136,8 +136,9 @@ class SidewaysShooter:
                 break
 
     def _check_aliens_left_edge(self):
+        screen_rect = self.screen.get_rect()
         for alien in self.aliens.sprites():
-            if alien.rect.left < 0:
+            if alien.rect.left < screen_rect.left:
                 self._ship_hit()
                 break
 

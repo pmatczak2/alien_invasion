@@ -106,16 +106,19 @@ class SidewaysShooter:
         self.aliens.add(alien)
 
     def _ship_hit(self):
-        self.stats.ships_left -= 1
+        if self.stats.ships_left > 0:
 
-        self.aliens.empty()
-        self.bullets.empty()
+            self.stats.ships_left -= 1
 
-        self._create_fleet()
-        self.sideways_image.center_ship()
+            self.aliens.empty()
+            self.bullets.empty()
 
-        sleep(0.5)
+            self._create_fleet()
+            self.sideways_image.center_ship()
 
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def _check_fleet_edges(self):
         for alien in self.aliens.sprites():

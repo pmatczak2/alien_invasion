@@ -100,12 +100,13 @@ class SidewaysShooter:
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
 
-        alien.x = 3 * alien_width + 2 * alien_width * alien_number + randint(-23, 12)
+        alien.x = 3 * alien_width + 2 * alien_width * alien_number + randint(-12, 22)
         alien.rect.x = alien.x
 
-        alien.y = alien.rect.height + 2 * alien.rect.height * row_number + randint(-12, 54)
+        alien.y = alien.rect.height + 2 * alien.rect.height * row_number + randint(-55, 12)
         alien.rect.y = alien.y
         self.aliens.add(alien)
+
 
     def _ship_hit(self):
         if self.stats.ships_left > 0:

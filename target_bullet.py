@@ -11,7 +11,7 @@ class Bullet(Sprite):
 
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width,
             self.settings.bullet_height)
-        self.rect.midtop = tp_game.ship.rect.midtop
+        self.rect.midright = tp_game.ship.rect.midright
 
         self.x = float(self.rect.x)
 

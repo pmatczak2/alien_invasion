@@ -2,6 +2,7 @@ import sys
 import pygame
 from target_settings import Settings
 from target_practice_ship import Ship
+from target_bullet import Bullet
 
 class TargetPractice:
 
@@ -14,11 +15,13 @@ class TargetPractice:
         pygame.display.set_caption("Target Practice")
 
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
 
     def _check_events(self):
@@ -37,6 +40,8 @@ class TargetPractice:
                 self.ship.moving_down = True
             elif event.key == pygame.K_q:
                 sys.exit()
+            elif event.key == pygame.K_SPACE:
+                self._fire_bullet()
 
 
     def _check_keyup_event(self, event):
@@ -45,9 +50,15 @@ class TargetPractice:
             elif event.key == pygame.K_DOWN:
                 self.ship.moving_down = False
 
+    def _fire_bullet(self):
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
 
         pygame.display.flip()
 

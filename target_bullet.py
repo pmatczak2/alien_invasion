@@ -14,3 +14,10 @@ class Bullet(Sprite):
         self.rect.midtop = tp_game.ship.rect.midtop
 
         self.x = float(self.rect.x)
+
+    def update_bullet(self):
+        self.x += self.settings.bullet_speed
+        self.rect.x = self.x
+
+    def draw_bullet(self):
+        pygame.draw.rect(self.screen, self.color, self.rect)

@@ -11,14 +11,14 @@ class Target(Sprite):
         self.screen_rect = tp_game.screen.get_rect()
 
         self.rect = pygame.Rect(0, 0, self.settings.target_width,
-                self.settings.target_heigth)
+                self.settings.target_height)
         self.rect.topright = self.screen_rect.topright
 
-        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def update(self):
-        self.x += self.settings.target_speed
-        self.rect.x = self.x
+        self.y += (self.settings.target_speed * self.settings.fleet_direction)
+        self.rect.y = self.y
 
     def draw_target(self):
         pygame.draw.rect(self.screen, self.color, self.rect)

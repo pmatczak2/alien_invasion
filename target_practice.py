@@ -4,7 +4,6 @@ from target_settings import Settings
 from target_practice_ship import Ship
 from target_bullet import Bullet
 from target_rect import Target
-
 class TargetPractice:
 
     def __init__(self):
@@ -17,13 +16,14 @@ class TargetPractice:
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
-        self.target = Target(self, "Target")
+        self.target = pygame.sprite.Group()
 
     def run_game(self):
         while True:
             self._check_events()
             self.ship.update()
             self.bullets.update()
+            self.target.update()
             self._update_screen()
 
     def _check_events(self):
@@ -56,12 +56,15 @@ class TargetPractice:
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
 
+
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-        self.target.draw_target()
+        for bullseye in self.target.sprites():
+            bullseye.draw_target()
+
 
 
         pygame.display.flip()

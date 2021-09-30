@@ -25,6 +25,7 @@ class Ship:
         self.rect.y = self.y
 
 
+
     def blitme(self):
         self.screen.blit(self.image, self.rect)
 

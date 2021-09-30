@@ -1,27 +1,24 @@
-import pygame.font
+import pygame
+from pygame.sprite import Sprite
 
-class Target:
+class Target(Sprite):
 
-    def __init__(self, tp_game, msg):
+    def __init__(self, tp_game):
+        super().__init__()
         self.screen = tp_game.screen
-        self.screen_rect = self.screen.get_rect()
+        self.settings = tp_game.settings
+        self.color = self.settings.target_color
+        self.screen_rect = tp_game.screen.get_rect()
 
-        self.width, self.height = 100, 35
-        self.target_color = (0, 0, 255)
-        self.text_color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 38)
-
-        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect = pygame.Rect(0, 0, self.settings.target_width,
+                self.settings.target_heigth)
         self.rect.topright = self.screen_rect.topright
 
-        self._prep_msg(msg)
+        self.x = float(self.rect.x)
 
-    def _prep_msg(self, msg):
-        self.msg_image = self.font.render(msg, True, self.text_color,
-                self.target_color)
-        self.msg_image_rect = self.msg_image.get_rect()
-        self.msg_image_rect.center = self.rect.center
+    def update(self):
+        self.x += self.settings.target_speed
+        self.rect.x = self.x
 
     def draw_target(self):
-        self.screen.fill(self.target_color, self.rect)
-        self.screen.blit(self.msg_image, self.msg_image_rect)
+        pygame.draw.rect(self.screen, self.color, self.rect)

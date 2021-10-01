@@ -67,9 +67,14 @@ class TargetPractice:
         self.targets.update()
 
     def _check_target_edges(self):
-        for target in self.targets.check_edges():
-            target.rect.y += self.settings.check_edges
-        self.settings.check_edges *= 1
+        if self.targets.check_edges():
+            self._change_target_direction()
+
+
+    def _change_target_direction(self):
+        self.targets.rect.y += self.settings.target_direction
+
+
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)

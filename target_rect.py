@@ -17,8 +17,8 @@ class Target(Sprite):
         self.y = float(self.rect.y)
 
     def check_edges(self):
-        screen_rect = self.screen.get_rect()
-        if self.rect.bottom >= screen_rect.bottom or self.rect.top <= screen_rect.top:
+        self.screen_rect = self.screen.get_rect()
+        if self.rect.bottom >= self.screen_rect.bottom and self.rect.top <= self.screen_rect.top:
             return True
 
     def update(self):

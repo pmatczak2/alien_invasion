@@ -16,6 +16,6 @@ class Settings:
         self.target_width = 100
         self.target_height = 35
         self.target_color = (0, 0, 255)
-        self.fleet_direction = .5
+        self.target_direction = 1
 
 

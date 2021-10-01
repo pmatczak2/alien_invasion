@@ -16,8 +16,13 @@ class Target(Sprite):
 
         self.y = float(self.rect.y)
 
+    def check_edges(self):
+        screen_rect = self.screen.get_rect()
+        if self.rect.bottom >= screen_rect.bottom or self.rect.top <= screen_rect.top:
+            return True
+
     def update(self):
-        self.y += (self.settings.target_speed * self.settings.fleet_direction)
+        self.y += (self.settings.target_speed * self.settings.target_direction)
         self.rect.y = self.y
 
     def draw_target(self):

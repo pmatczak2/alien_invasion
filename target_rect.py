@@ -29,7 +29,6 @@ class Target(Sprite):
             self.rect.bottom = self.screen_rect.bottom
             self.direction = -1
 
-
         self.rect.y = self.y
 
     def draw_target(self):

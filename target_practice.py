@@ -17,14 +17,14 @@ class TargetPractice:
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
-        self.targets = Target(self)
+        self.target = Target(self)
 
     def run_game(self):
         while True:
             self._check_events()
             self.ship.update()
             self._update_bullets()
-            self.targets.update()
+            self.target.update()
             self._update_screen()
 
     def _check_events(self):
@@ -63,25 +63,12 @@ class TargetPractice:
             if bullet.rect.left >= self.screen.get_rect().right:
                 self.bullets.remove(bullet)
 
-    def _update_targets(self):
-        self.targets.update()
-
-    def _check_target_edges(self):
-        if self.targets.check_edges():
-            self._change_target_direction()
-
-
-    def _change_target_direction(self):
-        self.targets.rect.y += self.settings.target_direction
-
-
-
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-        self.targets.draw_target()
+        self.target.draw_target()
 
         pygame.display.flip()
 

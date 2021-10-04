@@ -63,6 +63,9 @@ class TargetPractice:
             if bullet.rect.left >= self.screen.get_rect().right:
                 self.bullets.remove(bullet)
 
+        self._check_bullet_target_collision()
+
+    def _check_bullet_target_collision(self):
         collisions = pygame.sprite.spritecollide(self.target, self.bullets, True)
 
     def _update_screen(self):

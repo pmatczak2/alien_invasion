@@ -22,9 +22,11 @@ class TargetPractice:
     def run_game(self):
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self.target.update()
+
+            if self.stats.game.active:
+                self.ship.update()
+                self._update_bullets()
+                self.target.update()
             self._update_screen()
 
     def _check_events(self):

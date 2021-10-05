@@ -2,7 +2,7 @@ class GameStats():
 
     def __init__(self, tp_game):
         self.settings = tp_game.settings
-        self.reset_stats()
+        self.reset_game()
 
-    def reset_stats(self):
-        self.bullets_left = self.settings.bullets_limit
+    def reset_game(self):
+        self.ships_left = self.settings.ships_limit

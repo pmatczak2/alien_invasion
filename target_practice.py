@@ -4,6 +4,7 @@ from target_settings import Settings
 from target_practice_ship import Ship
 from target_bullet import Bullet
 from target_rect import Target
+from game_stats import GameStats
 
 class TargetPractice:
 
@@ -23,10 +24,10 @@ class TargetPractice:
         while True:
             self._check_events()
 
-            if self.stats.game.active:
-                self.ship.update()
-                self._update_bullets()
-                self.target.update()
+
+            self.ship.update()
+            self._update_bullets()
+            self.target.update()
             self._update_screen()
 
     def _check_events(self):

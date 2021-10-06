@@ -1,9 +1,10 @@
 import sys
 import pygame
 from target_settings import Settings
+from target_stats import GameStats
+from target_button import Button
 from target_practice_ship import Ship
 from target_bullet import Bullet
-from target_stats import GameStats
 from target_rect import Target
 
 class TargetPractice:
@@ -12,24 +13,27 @@ class TargetPractice:
         pygame.init()
         self.settings = Settings()
 
+
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Target Practice")
 
         self.stats = GameStats(self)
-
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.target = Target(self)
+
+        self.play_button = Button(self, "Play")
+
 
     def run_game(self):
         while True:
             self._check_events()
 
             if self.stats.game_active:
-                self.ship.update()
                 self._update_bullets()
                 self.target.update()
+                self.ship.update()
             self._update_screen()
 
     def _check_events(self):
@@ -86,6 +90,9 @@ class TargetPractice:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.target.draw_target()
+
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         pygame.display.flip()
 

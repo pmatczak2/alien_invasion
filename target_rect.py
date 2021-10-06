@@ -22,7 +22,7 @@ class Target(Sprite):
         self.y += self.direction * self.settings.target_speed
 
         if self.rect.top <= self.screen_rect.top:
-            self.rect.top = 0
+            self.rect.top = self.screen_rect.top
             self.direction = 1
 
         elif self.rect.bottom >= self.screen_rect.bottom:

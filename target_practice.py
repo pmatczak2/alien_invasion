@@ -3,8 +3,8 @@ import pygame
 from target_settings import Settings
 from target_practice_ship import Ship
 from target_bullet import Bullet
+from target_stats import GameStats
 from target_rect import Target
-from game_stats import GameStats
 
 class TargetPractice:
 
@@ -16,6 +16,8 @@ class TargetPractice:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Target Practice")
 
+        self.stats = GameStats(self)
+
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.target = Target(self)
@@ -24,10 +26,10 @@ class TargetPractice:
         while True:
             self._check_events()
 
-
-            self.ship.update()
-            self._update_bullets()
-            self.target.update()
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self.target.update()
             self._update_screen()
 
     def _check_events(self):
@@ -66,8 +68,14 @@ class TargetPractice:
         for bullet in self.bullets.copy():
             if bullet.rect.left >= self.screen.get_rect().right:
                 self.bullets.remove(bullet)
+                self._increment_misses()
 
         self._check_bullet_target_collision()
+
+    def _increment_misses(self):
+        self.stats.num_misses += 1
+        if self.stats.num_misses >= self.settings.miss_limit:
+            self.stats.game_active = False
 
     def _check_bullet_target_collision(self):
         collisions = pygame.sprite.spritecollide(self.target, self.bullets, True)

@@ -1,8 +1,11 @@
-class GameStats():
+class GameStats:
 
     def __init__(self, tp_game):
         self.settings = tp_game.settings
-        self.reset_game()
+        #self.reset_stats()
 
-    def reset_game(self):
-        self.ships_left = self.settings.ships_limit
+        self.game_active = True
+
+
+
+        self.num_misses = 0

@@ -56,8 +56,10 @@ class AlienInvasion:
     def _check_play_button(self, mouse_pos):
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            self.settings.increase_speed()
             self.stats.reset_stats()
             self._start_game()
+
 
     def _start_game(self):
         self.stats.game_active = True

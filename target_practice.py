@@ -23,6 +23,7 @@ class TargetPractice:
         self.bullets = pygame.sprite.Group()
         self.target = Target(self)
 
+
         self.play_button = Button(self, "Play")
 
 
@@ -68,6 +69,8 @@ class TargetPractice:
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
             self._start_game()
+            self.settings.initialize_dynamic_settings()
+
 
     def _start_game(self):
         self.stats.reset_stats()
@@ -76,6 +79,7 @@ class TargetPractice:
         self.bullets.empty()
 
         self.ship.center_ship()
+
 
     def _fire_bullet(self):
         if len(self.bullets) < self.settings.bullets_allowed:
@@ -108,6 +112,7 @@ class TargetPractice:
 
     def _check_bullet_target_collision(self):
         collisions = pygame.sprite.spritecollide(self.target, self.bullets, True)
+        self.settings.increase_speed()
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)

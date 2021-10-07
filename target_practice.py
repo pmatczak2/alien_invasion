@@ -44,30 +44,54 @@ class TargetPractice:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_event(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
-            if event.key == pygame.K_UP:
-                self.ship.moving_up = True
-            elif event.key == pygame.K_DOWN:
-                self.ship.moving_down = True
-            elif event.key == pygame.K_q:
-                sys.exit()
-            elif event.key == pygame.K_SPACE:
-                self._fire_bullet()
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = True
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_event(self, event):
-            if event.key == pygame.K_UP:
-                self.ship.moving_up = False
-            elif event.key == pygame.K_DOWN:
-                self.ship.moving_down = False
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
+
+    def _check_play_button(self, mouse_pos):
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            self._start_game()
+
+    def _start_game(self):
+        self.stats.reset_stats()
+        self.stats.game_active = True
+
+        self.bullets.empty()
+
+        self.ship.center_ship()
 
     def _fire_bullet(self):
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
+    def _target_missed(self):
+        self.stats.bullets_left -= 1
+
+        self.target.remove()
+        self.bullets.empty()
+
+
     def _update_bullets(self):
         self.bullets.update()
+
 
         for bullet in self.bullets.copy():
             if bullet.rect.left >= self.screen.get_rect().right:
@@ -75,6 +99,7 @@ class TargetPractice:
                 self._increment_misses()
 
         self._check_bullet_target_collision()
+
 
     def _increment_misses(self):
         self.stats.num_misses += 1
@@ -90,6 +115,7 @@ class TargetPractice:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.target.draw_target()
+
 
         if not self.stats.game_active:
             self.play_button.draw_button()

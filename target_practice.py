@@ -112,7 +112,11 @@ class TargetPractice:
 
     def _check_bullet_target_collision(self):
         collisions = pygame.sprite.spritecollide(self.target, self.bullets, True)
-        self.settings.increase_speed()
+
+        if collisions:
+            self.stats.num_hits += 1
+            if self.stats.num_hits % self.settings.levelup_hits == 0:
+                self.settings.increase_speed()
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)

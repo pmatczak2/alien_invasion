@@ -12,7 +12,7 @@ class Scoreboard:
         self.font = pygame.font.SysFont(None, 48)
 
         self.prep_score()
-        self.prer_high_score()
+        self.prep_high_score()
 
     def prep_score(self):
         rounded_score = round(self.stats.score, -1)

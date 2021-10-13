@@ -121,6 +121,7 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.stats.score += self.settings.alien_points
             self.sb.prep_score()
+            self.sb.check_high_score()
 
         if not self.aliens:
             self.bullets.empty()

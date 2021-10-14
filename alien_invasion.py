@@ -24,6 +24,7 @@ class AlienInvasion:
 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
+        self.sb.prep_level()
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -127,6 +128,9 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+
+            self.stats.level += 1
+            self.sb.prep_level()
 
 
     def _fire_bullet(self):

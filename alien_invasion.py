@@ -214,6 +214,7 @@ class AlienInvasion:
 
         self.sb.show_score()
 
+        #  Draw the paly button if the game is inactive.
         if not self.stats.game_active:
             self.play_button.draw_button()
 
